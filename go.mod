@@ -1,4 +1,4 @@
-module aes-256
+module aes256
 
 go 1.20
 
