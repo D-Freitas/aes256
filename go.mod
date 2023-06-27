@@ -1,4 +1,4 @@
-module aes256
+module github.com/D-Freitas/aes256
 
 go 1.20
 
