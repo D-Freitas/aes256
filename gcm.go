@@ -9,8 +9,8 @@ import (
 )
 
 type AES256GCM interface {
-	Encrypt(nonce []byte, data []byte, key []byte) ([]byte, error)
-	Decrypt(nonce []byte, data []byte, key []byte) ([]byte, error)
+	Encrypt(nonce, data, key []byte) ([]byte, error)
+	Decrypt(nonce, data, key []byte) ([]byte, error)
 }
 
 type gcm struct{}
@@ -19,7 +19,7 @@ func NewGCM() AES256GCM {
 	return &gcm{}
 }
 
-func (e *gcm) Encrypt(nonce []byte, data []byte, key []byte) ([]byte, error) {
+func (e *gcm) Encrypt(nonce, data, key []byte) ([]byte, error) {
 	err := e.isNonceSizeValid(nonce)
 	if err != nil {
 		return nil, err
@@ -38,7 +38,7 @@ func (e *gcm) Encrypt(nonce []byte, data []byte, key []byte) ([]byte, error) {
 	return aesgcm.Seal(nil, nonce, data, nil), nil
 }
 
-func (e *gcm) Decrypt(nonce []byte, data []byte, key []byte) ([]byte, error) {
+func (e *gcm) Decrypt(nonce, data, key []byte) ([]byte, error) {
 	err := e.isNonceSizeValid(nonce)
 	if err != nil {
 		return nil, err
